@@ -1,5 +1,5 @@
 <?php
-class UpdateDept extends CI_Model {
+class Updatedept extends CI_Model {
 
     function __construct() {
     parent::__construct(); // call parent constructor
@@ -32,7 +32,7 @@ public function upedit($emp_no, $dept_no) {
     $q = $this->db->where('emp_no', $emp_no )
                 ->where('to_date', '9999-01-01')
                 ->from('dept_emp');
-    $this->db->update($dept_emp, $data);
+    $this->db->update($dept_no, $data);
 
 
     $new_deptno = array('emp_no' => $emp_no,

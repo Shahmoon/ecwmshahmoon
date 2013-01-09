@@ -13,47 +13,18 @@ class Person extends CI_Controller {
 		// load helper
 		$this->load->helper('url');
 
-    	// load model
-		$this->load->model('personModel','',TRUE);
+		// load model
+		$this->load->model('personmodel','',TRUE);
+
 	
 }
-
 	function index($offset = 0){
 
-		// offset
-		$uri_segment = 3;
-		$offset = $this->uri->segment($uri_segment);
-		
-		// load data
-		$persons = $this->personModel->get_paged_list($this->limit, $offset)->result();
-		
-		// generate pagination
-		$this->load->library('pagination');
-		$config['base_url'] = site_url('person/index/');
- 		$config['total_rows'] = $this->personModel->count_all();
- 		$config['per_page'] = $this->limit;
-		$config['uri_segment'] = $uri_segment;
-		$this->pagination->initialize($config);
-		$data['pagination'] = $this->pagination->create_links();
-		
-		// generate table data
-		$this->load->library('table');
-		$this->table->set_empty("&nbsp;");
-		$this->table->set_heading('Emp_No', 'First Name', 'Last Name','Gender', 'Date of Birth', 'Hire Date','Actions');
-		$i = 0 + $offset;
-		foreach ($persons as $person){
-			$this->table->add_row($person->emp_no, $person->first_name,$person->last_name, strtoupper($person->gender)=='M'? 'Male':'Female', date('d-m-Y',strtotime($person->birth_date)), date('d-m-Y',strtotime($person->hire_date)), 
-				anchor('person/view/'.$person->emp_no,'view',array('class'=>'view')).' '.
-				anchor('person/update/'.$person->emp_no,'update',array('class'=>'update')).' '.
-				anchor('person/delete/'.$person->emp_no,'delete',array('class'=>'delete','onclick'=>"return confirm('Are you sure want to delete this person?')"))
-			);
-		}
-		$data['table'] = $this->table->generate();
 		
 		// load view
-		$this->load->view('personList', $data);
+		$this->load->view('personList');
 	}
-	
+
 	function add(){
 		// set validation properties
 		$this->_set_fields();
@@ -89,7 +60,7 @@ class Person extends CI_Controller {
 							'gender' => $this->input->post('gender'),
 							'birth_date' => date('Y-m-d', strtotime($this->input->post('birth_date'))),
 							'hire_date' => date('Y-m-d', strtotime($this->input->post('hire_date'))));
-			$id = $this->personModel->save($person);
+			$id = $this->personmodel->save($person);
 			
 			// set form input name="id"
 			$this->validation->id = $id;
@@ -101,32 +72,20 @@ class Person extends CI_Controller {
 		// load view
 		$this->load->view('personEdit', $data);
 	}
-	
+
 	function view($id){
 		// set common properties
 		$data['title'] = 'Person Details';
 		$data['link_back'] = anchor('person/index/','Back to list of persons',array('class'=>'back'));
 		
 		// get person details
-		$data['person'] = $this->personModel->get_by_id($id)->row();
+		$data['person'] = $this->personmodel->get_by_id($id)->row();
 		
 		// load view
 		$this->load->view('personView', $data);
 	}
 	
-	function update($id){
-		// set validation properties
-		$this->_set_fields();
-		
-		// prefill form values
-		$person = $this->personModel->get_by_id($id)->row();
-		$this->validation->id = $id;
-		$this->validation->first_name = $person->first_name;
-		$this->validation->last_name = $person->last_name;
-		$_POST['gender'] = strtoupper($person->gender);
-		$this->validation->birth_date = date('d-m-Y',strtotime($person->birth_date));
-		$this->validation->hire_date = date('d-m-Y',strtotime($person->hire_date));
-		
+	function update(){		
 		// set common properties
 		$data['title'] = 'Update person';
 		$data['message'] = '';
@@ -134,7 +93,7 @@ class Person extends CI_Controller {
 		$data['link_back'] = anchor('person/index/','Back to list of persons',array('class'=>'back'));
 	
 		// load view
-		$this->load->view('personEdit', $data);
+		$this->load->view('personUpdate', $data);
 	}
 	
 	function updatePerson(){
@@ -158,26 +117,18 @@ class Person extends CI_Controller {
 							'gender' => $this->input->post('gender'),
 							'birth_date' => date('Y-m-d', strtotime($this->input->post('birth_date'))),
 							'hire_date' => date('Y-m-d', strtotime($this->input->post('hire_date'))));
-			$this->personModel->update($id,$person);
+			$this->personmodel->update($id,$person);
 			
 			// set user message
 			$data['message'] = '<div class="success">update person success</div>';
 		}
 		
 		// load view
-		$this->load->view('personEdit', $data);
+		$this->load->view('personUpdate', $data);
 	}
-	
-	function delete($id){
-		// delete person
-		$this->personModel->delete($id);
-		
-		// redirect to person list page
-		redirect('person/index/','refresh');
-	}
-	
-	// validation fields
+// validation fields 
 	function _set_fields(){
+		//feilds name added to feild array to be validated.
 		$fields['id'] = 'id';
 		$fields['emp_no'] = 'emp_no';
 		$fields['first_name'] = 'first_name';
@@ -191,7 +142,7 @@ class Person extends CI_Controller {
 	
 	// validation rules
 	function _set_rules(){
-		
+		//sets validations rules for each of the feilds specified
 		$rules['first_name'] = 'trim|required';
 		$rules['last_name'] = 'trim|required';
 		$rules['gender'] = 'trim|required';
@@ -199,15 +150,29 @@ class Person extends CI_Controller {
 		$rules['hire_date'] = 'trim|required|callback_valid_date';
 		
 		$this->validation->set_rules($rules);
-		
+		//the error messages to be
 		$this->validation->set_message('required', '* required');
 		$this->validation->set_message('isset', '* required');
 		$this->validation->set_error_delimiters('<p class="error">', '</p>');
 
-
-		
 	}
 
+//this function will open the view specified
+	function del()
+	{
+		$this->load->view('deleteView');
+	}
+	
+	function delete(){
+		$id = $this->input->post('emp_no');
+		// delete person
+		$this->personmodel->delete($id);
+		
+		$this->load->view('personList');
+	  
+	}
+	
+//function to load view deptEdit
 	function updep()
 	{
 		$this->load->view('deptEdit');
@@ -222,30 +187,30 @@ class Person extends CI_Controller {
         
     );
 
-    $this->load->model('updateModel'); // load the model first
-    if($this->updateModel->upddata($data)) // call the method from the model
+    $this->load->model('updatemodel'); // updatemodel will be loaded
+    if($this->updatemodel->upddata($data)) // call this method from the model
     {
-        	redirect('person/index/');
+        	redirect('person/index/');//redirect to the original page
     }
 }
-
+//function to load view updept
 function updept()
 {
 	$this->load->view('moveEdit');
 }
-
+//moves employees departments no.
  function movedept() 
 {   
-    $emp_no = $this->input->get('emp_no');
+    $emp_no = $this->input->get('emp_no');//stores this into the variable
     $dept_no = $this->input->get('dept_no');
 
-    $this->load->model('updateDept'); // load the model first
-    if($this->updateDept->upedit($emp_no, $dept_no)) // call the method from the model
+    $this->load->model('updatedept'); // load the model first
+    if($this->updatedept->upedit($emp_no, $dept_no)) // call the method from the model
     {
         	redirect('person/index/');
     }
 }
-   
+   //loads this salaryEdit
      function upsalary()
 {
     $this->load->view('salaryEdit');
@@ -254,28 +219,28 @@ function updept()
 
 public function editsal() 
 {   
-    $emp_no = $this->input->get('emp_no');
+    $emp_no = $this->input->get('emp_no');//stores this into the variable
     $salary = $this->input->get('salary');
 
-    $this->load->model('salary_model'); // load the model first
-    if($this->salary_model->upsalary($emp_no, $salary)) // call the method from the model
+    $this->load->model('salary_model'); // will load this model 
+    if($this->salary_model->upsalary($emp_no, $salary)) // the method from the model will be called and the variables will be passed into the model function
     {
         	redirect('person/index/');
     }
  
 
 }
-
+//this function loads this view specified
 function promoteMan(){
 
 	$this->load->view('promoteMan');
 }
 
 function manPromote(){
-	$emp_no = $this->input->post('emp_no');
+	$emp_no = $this->input->post('emp_no');//
 	$dept_no = $this->input->post('dept_no');
-	$this->load->model('personModel'); 
-	$this->personModel->promoMan($emp_no, $dept_no);
+	$this->load->model('personmodel'); //load the model
+	$this->personmodel->promoMan($emp_no, $dept_no);//pass these variables in the function specified in the model
 	$this->load->view('success');
 }
 
@@ -285,7 +250,7 @@ function removeMan()
 }
 	function deleteMan($id){
 		// delete person
-		$this->personModel->deleteMan($id);
+		$this->personmodel->deleteMan($id);
 
 		
 		// redirect to person list page

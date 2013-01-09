@@ -1,6 +1,6 @@
 <html>
 <head>
-	
+		<link rel="stylesheet" href="<?php echo base_url('css/styles.css') ?>" type="text/css" media="screen"> 
 </head> 
 <style>
 		* {
@@ -40,17 +40,17 @@
 		<div class="data">
 		<table border="4">
 			<tr>
-				<td width="30%">ID</td>
+				<td width="30%">Employee No</td>
 				<td><input type="text" name="id" disabled="disable" class="text" value="<?php echo $this->validation->id; ?>"/></td>
 				<input type="hidden" name="id" value="<?php echo $this->validation->id; ?>"/>
 			</tr>
 			<tr>
-				<td valign="top">Name<span style="color:red;">*</span></td>
+				<td valign="top">First Name<span style="color:red;">*</span></td>
 				<td><input type="text" name="first_name" class="text" value="<?php echo $this->validation->first_name; ?>"/>
 				<?php echo $this->validation->first_name_error; ?></td>
 			</tr>
 			<tr>
-				<td valign="top">Name<span style="color:red;">*</span></td>
+				<td valign="top">Last Name<span style="color:red;">*</span></td>
 				<td><input type="text" name="last_name" class="text" value="<?php echo $this->validation->last_name; ?>"/>
 				<?php echo $this->validation->last_name_error; ?></td>
 			</tr>
@@ -66,7 +66,7 @@
 				<?php echo $this->validation->birth_date_error; ?></td>
 			</tr>
 			<tr>
-				<td valign="top">Date of birth (dd-mm-yyyy)<span style="color:red;">*</span></td>
+				<td valign="top">Hire Date (dd-mm-yyyy)<span style="color:red;">*</span></td>
 				<td><input type="text" name="hire_date"  class="text" value="<?php echo $this->validation->hire_date; ?>"/>
 				<?php echo $this->validation->hire_date_error; ?></td>
 			</tr>
@@ -78,7 +78,7 @@
 		</div>
 		</form>
 		<br />
-		<?php echo $link_back; ?>
+		<?php //echo $link_back; ?>
 	</div>
 </body>
 </html>

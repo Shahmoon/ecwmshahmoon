@@ -1,6 +1,6 @@
 <html>
 <head>
-	<link rel="stylesheet" href="css/styles.css" type="text/css" media="screen"> 
+	<link rel="stylesheet" href="<?php echo base_url('css/styles.css') ?>" type="text/css" media="screen"> 
 </head>
 	<body>
 
@@ -9,14 +9,9 @@
 <?php include_once("menu_template.php") ?>
 </div>
 	<div class="content">
-		<h1>WELCOME</h1>
-		<table border="4">
-		<tr><td><div class="paging"><?php echo $pagination; ?></div></td></tr>
-		<tr>
-			<div class="data"><td><?php echo $table; ?></div><td></tr>
-	</table border="4">
-		<br />
-		<?php echo anchor('person/add/','add new data',array('class'=>'add')); ?>
+		<center><h1><u>Welcome</u></h1></center>
+		<h2>You are viewing sensitive data which is protected under that data protection act.</h2>
+		<h2>Please note any misuse of the data can result in criminal prosecution.</h2>
 	</div>
 </body>
 </html>

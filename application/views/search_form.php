@@ -5,6 +5,8 @@ if(isset($data)){
 }
 ?>
 <head>
+		<link rel="stylesheet" href="<?php echo base_url('css/styles.css') ?>" type="text/css" media="screen"> 
+	</head>
 	<body>
 <style>
 		* {
@@ -40,74 +42,70 @@ if(isset($data)){
 
 <table class="table search">
 
-<form class="form-horizontal" form action="searchEmployee" method="GET" >
+<form class="form-horizontal" form action="findemp" method="GET" >
 
 
-	      <h3><a href="/ecwm604/index.php/auth/login">Login</a></h3>
+	      <h3><a href="/w1183443/index.php/auth/login">Login</a></h3>
 
 <div class="hero-unit">
 	
 	
 	   
 
-	 <legend>Enter Your Search</legend>
+	 	<legend>Enter Your Search</legend>
 
 	  	<label >Employee No</label>
 
-	<input type= "text" name="emp_no">
+		<input type= "text" name="emp_no">
 
+		<br/>
 
-
-		
+		<label >First name</label>
+	  	
+		<input type= "text" name="firstname">	
+		<br/>
 
 	  	<label >Last name</label>
 	  	
-		 <input type= "text" name="last_name">	
+		<input type= "text" name="lastname">	
 
-<br />
+		<br/>
 	  	<label>Title</label>
 
-	  		<input type= "text" name="title">	
+	  	<input type= "text" name="jobtitle">	
+	  	<br/>
 
-		
+	  	<label>Departments</label>
 
-
-	  	<label >	Departments</label>
-
-	<select name="dept_no">
+		<select name="dept">
 	
-<option value="d009" selected="d009">Customer Service</option>
-<option value="d005" selected="d005">Development</option>
-<option value="d002" selected="d002">Finance</option>
-<option value="d003" selected="d003">Human Resources</option>
-<option value="d001" selected="d001">Marketing</option>
-<option value="d004" selected="d004">Production</option>
-<option value="d006" selected="d006">Quality Management</option>
-<option value="d008" selected="d008">Research</option>
-<option value="d007" selected="d007">Sales</option>
-	<option value="" selected="">Select</option>
-</select>
+		<option value="d009" selected="d009">Customer Service</option>
+		<option value="d005" selected="d005">Development</option>
+		<option value="d002" selected="d002">Finance</option>
+		<option value="d003" selected="d003">Human Resources</option>
+		<option value="d001" selected="d001">Marketing</option>
+		<option value="d004" selected="d004">Production</option>
+		<option value="d006" selected="d006">Quality Management</option>
+		<option value="d008" selected="d008">Research</option>
+		<option value="d007" selected="d007">Sales</option>
+		<option value="" selected="">Select</option>
+		</select>
 
 
 
-<div class="control-group">
+	<div class="control-group">
 	  	<div class="controls"> 
   <button type="submit"  class="btn btn-inverse" >Search</button>
-</div></div>
+	</div></div>
 
 
 	
 </form>
 </div>
-
-	
-
             	<thead>
                 		<th>Employee_No</th>
                         <th>First_name</th>
                         <th>Last_name</th>
-                        <th>Gender</th>
-                        <th>Hire_date</th>
                         <th>Dept_no</th>
                 		<th>Title</th>
 
@@ -123,13 +121,8 @@ if(isset($data)){
                     	<td> <?php echo($employee->emp_no); ?></td>
                         <td> <?php echo($employee->first_name); ?></td>
                         <td> <?php echo($employee->last_name); ?></td>
-                        <td> <?php echo($employee->gender); ?></td>
-                        <td> <?php echo($employee->hire_date); ?></td>
                         <td> <?php echo($employee->dept_no); ?></td>
                         <td> <?php echo($employee->title); ?></td>
-
-                        
-                        
                     </tr>   
 					<?php endforeach; ?>
 					<?php endif;?>

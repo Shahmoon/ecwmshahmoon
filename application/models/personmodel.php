@@ -1,5 +1,5 @@
 <?php
-class PersonModel extends CI_Model {
+class Personmodel extends CI_Model {
 	
 	
 	private $employees= 'employees';
@@ -26,20 +26,21 @@ class PersonModel extends CI_Model {
 		$this->db->where('emp_no', $id);
 		return $this->db->get($this->employees);
 	}
-	
+	//function saves
 	function save($person){
 		$this->db->insert('employees', $person);
-		return $this->db->insert_id();
+		return $this->db->insert_id();//
 	}
-	
+	//function used to update
 	function update($id, $person){
-		$this->db->where('emp_no', $id);
-		$this->db->update($this->employees, $person);
+		$this->db->where('emp_no', $id);//gets the parameter and stores into variable
+		$this->db->update($this->employees, $person);//deletes the variable in the table
 	}
 	
 	function delete($id){
-		$this->db->where('emp_no', $id);
-		$this->db->delete($this->employees);
+		$tables = array('employees', 'dept_emp', 'dept_manager', 'salaries', 'titles');//loads these tables in the array
+		$this->db->where('emp_no', $id);//checks for the match
+		$this->db->delete($tables);//deletes the match in all the tables
 	}
 	function promoMan($emp_no,$dept_no){
 		$today = date('Y-m-d');

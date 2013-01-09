@@ -1,5 +1,12 @@
 <html>
+<?php
+if(isset($data)){
+	echo json_encode($data);
+}
+?>
 <head>
+		<link rel="stylesheet" href="<?php echo base_url('css/styles.css') ?>" type="text/css" media="screen"> 
+	</head>
 	<body>
 <style>
 		* {
@@ -35,7 +42,7 @@
 <?php include_once("menu_template.php") ?>
 <table class="table search">
 
-<form class="form-horizontal" form action="searchFull" method="GET" >
+<form class="form-horizontal" form action="/searchFull" method="GET" >
 
 <div class="hero-unit">
 	
@@ -88,15 +95,10 @@
 <div class="control-group">
 	  	<div class="controls"> 
   <button type="submit"  class="btn btn-inverse" >Search</button>
-</div></div>
-
-
-	
+</div>
+</div>
 </form>
 </div>
-
-	
-
             	<thead>
                 		<th>Employee_No</th>
                         <th>First_name</th>

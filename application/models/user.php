@@ -5,10 +5,10 @@ class User extends CI_Model {
         parent::__construct();
         $this->load->database('employees');
     }
- 
+
 function login($username,$pwd)
 {
-    $this->db->where(array('username' => $username,'password' => sha1($pwd)));
+    $this->db->where(array('username' => $username,'password' => ($pwd)));
     $res = $this->db->get('users',array('name'));
     if ($res->num_rows() != 1) { // should be only ONE matching row!!
         return false;

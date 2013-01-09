@@ -1,10 +1,10 @@
 <html>
 <head>
-	
 	<title>Employee</title>
+		<link rel="stylesheet" href="<?php echo base_url('css/styles.css') ?>" type="text/css" media="screen"> 
+	</head>
 	
-<link rel="stylesheet" href="css/styles.css" type="text/css" media="screen"> 
-</head>
+
 		<div id="menuContainer">
 <?php include_once("menu_template.php") ?>
 </div>

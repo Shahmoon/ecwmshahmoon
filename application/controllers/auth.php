@@ -12,7 +12,6 @@ class Auth extends CI_Controller {
     redirect('/auth/login'); // url helper function
 }
 
-	
  public function login()
 {
     $data['errmsg'] = '';
@@ -25,9 +24,10 @@ public function authenticate()
     $password = $this->input->post('pword');
     $user = $this->authlib->login($username,$password);
     if ($user !== false) {
-        redirect('person');
+        $this->load->view('personList');
     }
     else {
+        echo "error";
         $data['errmsg'] = 'Unable to login - please try again';
         $this->load->view('login_view',$data);
     }

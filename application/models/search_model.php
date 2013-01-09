@@ -9,7 +9,7 @@ class search_model extends CI_Model {
 		}
 	
 
-function searchEmployee($emp_no,$last_name,$title,$dept_no,$limit){
+function searchEmployee($first_name, $last_name,$title,$dept_no,$limit){
 			
 
 
@@ -30,6 +30,14 @@ function searchEmployee($emp_no,$last_name,$title,$dept_no,$limit){
 			{
 				
 				$this->db->where('employees.emp_no',$emp_no);
+				
+			}
+			
+			if(!empty($first_name))
+			
+			{
+				
+				$this->db->where('employees.first_name',$first_name);
 				
 			}
 			

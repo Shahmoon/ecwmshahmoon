@@ -1,5 +1,5 @@
 <?php
-class updateModel extends CI_Model {
+class Updatemodel extends CI_Model {
 
 // model constructor function
 function __construct() {

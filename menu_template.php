@@ -20,10 +20,12 @@ if ($menuLinkid == "index"){
 }
 ?>
 <a class="<?php echo $index; ?>" href="<?php echo site_url('person/') ?>">Home</a>
-<a class="<?php echo $index; ?>" href="<?php echo site_url('search/searchFull') ?>">Search</a>
+<a class="<?php echo $index; ?>" href="<?php echo site_url('find/searchFull') ?>">Search</a>
 <a class="<?php echo $index; ?>" href="<?php echo site_url('person/addPerson') ?>">Add Employee</a>
+<a class="<?php echo $index; ?>" href="<?php echo site_url('person/update') ?>">Update Employee</a>
 <a class="<?php echo $index; ?>" href="<?php echo site_url('person/updep') ?>">Change Title</a>
 <a class="<?php echo $index; ?>" href="<?php echo site_url('person/updept') ?>">Change Department</a>
 <a class="<?php echo $index; ?>" href="<?php echo site_url('person/upsalary') ?>">Update Salary</a>
 <a class="<?php echo $index; ?>" href="<?php echo site_url('person/deleteMan') ?>">Remove Manager</a>
-<a class="<?php echo $index; ?>" href="<?php echo site_url('auth/logout') ?>">log Out </a>
+<a class="<?php echo $index; ?>" href="<?php echo site_url('person/del') ?>">Delete Employee</a>
+<a class="<?php echo $index; ?>" href="<?php echo site_url('auth/logout') ?>">Log Out </a>

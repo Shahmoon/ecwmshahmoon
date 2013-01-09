@@ -1,21 +1,21 @@
 <?php
- class Search extends CI_controller{
+ class Find extends CI_controller{
     
 
- function searchEmployee(){
+ function findemp(){
 
-        $limit =100;
-        $emp_no = $this->input->get('emp_no');
-        $last_name = $this->input->get('last_name');
-        $title =$this->input->get('title');
-        $dept_no =$this->input->get('dept_no');
+        $limit =100;//sets a limit to be shown
+        $first_name = $this->input->get('firstname');//stores the parameter into the variable
+        $last_name = $this->input->get('lastname');
+        $title =$this->input->get('jobtitle');
+        $dept_no =$this->input->get('dept');
         
-        $this->load->model('search_model');
-        
-        if (empty($emp_no) && empty($last_name) && empty($title) && empty($dept_no)) {
+        $this->load->model('search_model');//loads this model
+        //checks if any of the feilds are empty
+        if (empty($first_name) && empty($last_name) && empty($title) && empty($dept_no)) {
             $data = ('');
         } else {
-        $data['query'] = $this->search_model->searchEmployee($emp_no,$last_name,$title,$dept_no,$limit);
+        $data['query'] = $this->search_model->searchEmployee($first_name,$last_name,$title,$dept_no,$limit);//loads this model,passing variables
         }
         $this->load->view('search_form', $data);
     }

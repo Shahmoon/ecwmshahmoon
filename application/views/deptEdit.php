@@ -1,8 +1,10 @@
 <html>
 <head>
-
+	<link rel="stylesheet" href="<?php echo base_url('css/styles.css') ?>" type="text/css" media="screen"> 
+</head>
 <body>
-<form action="http://localhost/ecwm604/index.php/person/updtitle" method="POST">
+<form action="/w1183443/index.php/person/updtitle" method="POST">
+	<?php include_once("menu_template.php") ?><br/>
 employee id: 
 <input type=text name="id"><br />
 change title to: 
@@ -15,10 +17,5 @@ change title to:
 </select><br />
 <input type="submit" value="submit"/>
 <br />
-<?php
-
-//echo $data['title'];
-?>
-
 </body>
 </html>
